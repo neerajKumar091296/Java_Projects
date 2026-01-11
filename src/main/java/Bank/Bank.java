@@ -55,9 +55,6 @@ public class Bank {
 
     public void transferFunds(String fromAccountNumber, String toAccountNumber, double amount) {
 
-
-
-
         if (amount <= 0) {
             System.out.println("Amount must be greater than Zero ");
             return;
@@ -95,26 +92,45 @@ public class Bank {
             - code:
                  BankAccount sourceAmount = findAccountByNumber(fromAccountNumber);
                  BankAccount destinationAmount = findAccountByNumber(toAccountNumber);
-
                  the above code already handles this case
-
-
         */
 
-
-
-        if (sourceAmount.getBalance() < amount) {
-            System.out.println("Insufficient balance");
+        if (sourceAmount == destinationAmount) {
+            System.out.println("Source and destination cannot be same");
             return;
         }
+
+
+
+        BankAccount firstLock;
+        BankAccount secondLock;
+
+
+        if(sourceAmount.getAccountNumber().compareTo(destinationAmount.getAccountNumber()) < 0) {
+            firstLock = sourceAmount;
+            secondLock = destinationAmount;
+        } else {
+            firstLock = destinationAmount;
+            secondLock = sourceAmount;
+        }
+
+
+        synchronized (firstLock) {
+            synchronized (secondLock) {
+
+                if (sourceAmount.getBalance() < amount) {
+                    System.out.println("Insufficient balance");
+                    return;
+                }
+
+            }
+        }
+
+
 
         sourceAmount.withdraw(amount);
         destinationAmount.deposit(amount);
         System.out.println("Transfer Successfull");
-
-
-
-
 
 
 
