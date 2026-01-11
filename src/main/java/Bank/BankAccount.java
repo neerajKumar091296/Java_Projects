@@ -29,6 +29,9 @@ public class BankAccount {
         this.balance = balance;
     }
 
+    public String getAccountNumber() {
+        return accountNumber;
+    }
 
     public void deposit(double amount) {
 

@@ -1,31 +1,27 @@
 package Bank;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Bank {
 
-    private  List<BankAccount> bankList;
+    private final Map<String, BankAccount> bankList;
 
     public Bank() {
-        bankList = new ArrayList<>();
+        bankList = new HashMap<>();
         System.out.println("Bank System initialized");
     }
 
     public void addAccount(BankAccount account) {
 
-        if (account == null) {
-            System.out.println("Account is not present in bankList");
+        if(account == null || bankList.containsKey(account.getAccountNumber())) {
+            System.out.println("Bank Account Already Added.!!");
             return;
         }
 
-        if (bankList.contains(account)) {
-            System.out.println("Account already exists");
-            return;
-        }
-
-        bankList.add(account);
-        System.out.println("Account added successfully");
+        bankList.put(account.getAccountNumber(),account);
 
 
     }
@@ -38,8 +34,26 @@ public class Bank {
         }
 
 
-        for(BankAccount Account: bankList) {
-            System.out.println(Account);
+        for(Map.Entry<String, BankAccount> entry: bankList.entrySet()) {
+            System.out.println(entry.getKey() + "=" + entry.getValue());
+        }
+
+
+
+
+    }
+
+    public BankAccount findAccountByNumber(String accountNumber) {
+
+        if (accountNumber == null || accountNumber.isEmpty()) {
+            return  null;
+        }
+
+        return bankList.get(accountNumber);
+
+
+
+
         }
 
     }
@@ -47,7 +61,3 @@ public class Bank {
 
 
 
-
-
-
-}
