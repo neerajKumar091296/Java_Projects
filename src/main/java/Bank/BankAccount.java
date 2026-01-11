@@ -8,7 +8,6 @@ public class BankAccount {
 
     public BankAccount (String accountNumber, String accountHolderName, double balance) {
 
-
         if (accountNumber == null || accountNumber.isEmpty()) {
             throw new IllegalArgumentException("Account number cannot be empty");
         }
@@ -20,10 +19,6 @@ public class BankAccount {
         if (balance < 0) {
             throw new IllegalArgumentException("Initial balance cannot be negative");
         }
-
-
-
-
         this.accountNumber = accountNumber;
         this.accountHolderName = accountHolderName;
         this.balance = balance;
@@ -61,7 +56,6 @@ public class BankAccount {
     }
 
     @Override
-
     public String toString() {
 
         return  "Bank Account Details \n" +
